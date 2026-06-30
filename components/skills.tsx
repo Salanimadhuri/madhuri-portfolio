@@ -2,27 +2,49 @@
 
 import { motion } from 'framer-motion'
 import { SectionHeading } from './section-heading'
+import { TechBadge } from './tech-badge'
 
+// Brand colors matching the reference colored-dot style
 const groups = [
   {
     label: 'Languages',
-    items: ['Java', 'Python', 'JavaScript', 'SQL'],
+    items: [
+      { name: 'Java',       color: '#f89820' },
+      { name: 'Python',     color: '#3776ab' },
+      { name: 'JavaScript', color: '#f7df1e' },
+      { name: 'SQL',        color: '#00758f' },
+    ],
   },
   {
     label: 'Backend',
-    items: ['Spring Boot', 'Hibernate', 'JDBC', 'Node.js', 'Express.js'],
+    items: [
+      { name: 'Spring Boot', color: '#6db33f' },
+      { name: 'Hibernate',   color: '#59666c' },
+      { name: 'JDBC',        color: '#007396' },
+      { name: 'Node.js',     color: '#339933' },
+      { name: 'Express.js',  color: '#888888' },
+    ],
   },
   {
     label: 'Frontend',
-    items: ['React'],
+    items: [
+      { name: 'React', color: '#61dafb' },
+    ],
   },
   {
     label: 'Databases',
-    items: ['MySQL', 'MongoDB'],
+    items: [
+      { name: 'MySQL',   color: '#00758f' },
+      { name: 'MongoDB', color: '#13aa52' },
+    ],
   },
   {
     label: 'Tools',
-    items: ['Git', 'GitHub', 'Postman'],
+    items: [
+      { name: 'Git',     color: '#f1502f' },
+      { name: 'GitHub',  color: '#888888' },
+      { name: 'Postman', color: '#ff6c37' },
+    ],
   },
 ]
 
@@ -51,12 +73,7 @@ export function Skills() {
               </h3>
               <div className="flex flex-wrap gap-2">
                 {g.items.map((item) => (
-                  <span
-                    key={item}
-                    className="rounded-full border border-border bg-secondary/40 px-3 py-1.5 text-sm transition-colors hover:border-glow-end/50"
-                  >
-                    {item}
-                  </span>
+                  <TechBadge key={item.name} name={item.name} size={13} />
                 ))}
               </div>
             </motion.div>

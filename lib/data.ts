@@ -5,7 +5,6 @@ export const personal = {
   location: 'Kakinada, Andhra Pradesh',
   email: 'salanimadhuri19@gmail.com',
   phone: '+91 89770 71736',
-  about: `I'm a passionate Java Full Stack Developer who loves building robust, end-to-end applications. I thrive on solving problems, crafting clean backend logic, and creating seamless user experiences. Always eager to learn and grow, I'm currently looking for new opportunities to contribute and innovate.`,
   socials: {
     github: 'https://github.com/Salanimadhuri',
     linkedin: 'https://linkedin.com/in/madhuri-salani-581973313',
@@ -43,21 +42,21 @@ export const experience = [
 ]
 
 export const skills = [
-  'Java',
-  'Python',
-  'JavaScript',
-  'SQL',
-  'Spring Boot',
-  'Hibernate',
-  'JDBC',
-  'React',
-  'Node.js',
-  'Express.js',
-  'MySQL',
-  'MongoDB',
-  'Git',
-  'GitHub',
-  'Postman',
+  { name: 'Java',        color: '#f89820' },
+  { name: 'Python',      color: '#3776ab' },
+  { name: 'JavaScript',  color: '#f7df1e' },
+  { name: 'SQL',         color: '#00758f' },
+  { name: 'Spring Boot', color: '#6db33f' },
+  { name: 'Hibernate',   color: '#59666c' },
+  { name: 'JDBC',        color: '#007396' },
+  { name: 'React',       color: '#61dafb' },
+  { name: 'Node.js',     color: '#339933' },
+  { name: 'Express.js',  color: '#888888' },
+  { name: 'MySQL',       color: '#00758f' },
+  { name: 'MongoDB',     color: '#13aa52' },
+  { name: 'Git',         color: '#f1502f' },
+  { name: 'GitHub',      color: '#888888' },
+  { name: 'Postman',     color: '#ff6c37' },
 ]
 
 export const projects = [
@@ -71,9 +70,9 @@ export const projects = [
       'Real-time inventory tracking backed by MySQL.',
     ],
     tags: ['Java', 'Spring Boot', 'React', 'MySQL', 'Hibernate'],
-    image: '/project-inventory.png',
-    github: 'https://github.com/Salanimadhuri',
-    live: 'https://github.com/Salanimadhuri',
+    image: 'https://api.microlink.io/?url=https://smart-shelf-x-inventory-management-mocha.vercel.app&screenshot=true&meta=false&embed=screenshot.url',
+    github: 'https://github.com/Salanimadhuri/SmartShelfX-Inventory-Management',
+    live: 'https://smart-shelf-x-inventory-management-mocha.vercel.app/',
   },
   {
     title: 'Citizen Grievance Management Portal',
@@ -84,10 +83,10 @@ export const projects = [
       'Role-based dashboards for citizens and administrators.',
       'Node.js & Express backend with MongoDB persistence.',
     ],
-    tags: ['React', 'Node.js', 'Express.js', 'MongoDB', 'JavaScript'],
-    image: '/project-grievance.png',
-    github: 'https://github.com/Salanimadhuri',
-    live: 'https://github.com/Salanimadhuri',
+    tags: ['Java', 'Spring Boot', 'React', 'MongoDB'],
+    image: 'https://api.microlink.io/?url=https://citizen-grievance-management-portal.vercel.app&screenshot=true&meta=false&embed=screenshot.url',
+    github: 'https://github.com/Salanimadhuri/Citizen-Grievance-Management-portal',
+    live: 'https://citizen-grievance-management-portal.vercel.app/',
   },
 ]
 

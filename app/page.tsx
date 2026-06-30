@@ -11,7 +11,7 @@ import { Footer } from '@/components/footer'
 
 export default function Page() {
   return (
-    <main className="relative overflow-x-hidden">
+    <main className="relative" style={{ overflowX: 'clip' }}>
       <Navbar />
       <Hero />
       <About />

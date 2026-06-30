@@ -1,95 +1,119 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { ChevronRight, ExternalLink } from 'lucide-react'
 import { SectionHeading } from './section-heading'
 import { projects } from '@/lib/data'
 import { GithubIcon } from './brand-icons'
 
+/**
+ * Sticky stacked scrolling — reference: html-to-react-converter-421 Projects.tsx
+ *
+ * Structure (matching reference exactly):
+ *  - Section: flex flex-col justify-center items-center
+ *  - Wrapper: px-4 lg:max-w-4xl w-full
+ *  - Cards: position:sticky with hardcoded top offsets (72px, 152px, 232px...)
+ *           and increasing z-index so later cards stack on top
+ *  - Spacing: my-4 on each card (no calculated marginBottom)
+ *  - Image: overflow-visible wrapper + absolute positioning to allow overflow
+ */
+
+const stickyOffsets = ['72px', '152px', '232px', '312px', '392px', '472px']
+
 export function Projects() {
   return (
-    <section id="projects" className="relative px-6 py-24">
-      <div className="mx-auto max-w-6xl">
+    <section
+      id="projects"
+      className="flex flex-col justify-center items-center py-10 md:py-16 px-4"
+    >
+      {/* Header */}
+      <div className="mb-10 md:mb-16">
         <SectionHeading
           eyebrow="Explore my creations"
           title="Project"
           accent="Showcase"
         />
+      </div>
 
-        <div className="space-y-8">
-          {projects.map((p, i) => (
-            <motion.article
-              key={p.title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="glass overflow-hidden rounded-3xl"
-            >
-              <div className="grid items-stretch md:grid-cols-2">
-                {/* Text */}
-                <div className="p-8 sm:p-10">
-                  <h3 className="font-serif text-2xl sm:text-3xl">{p.title}</h3>
-                  <p className="mt-3 text-muted-foreground">{p.description}</p>
+      {/* Cards wrapper — exactly matching reference structure */}
+      <div className="px-4 lg:max-w-4xl w-full">
+        {projects.map((p, i) => (
+          <div
+            key={p.title}
+            className="flex max-lg:flex-col gap-4 my-4 glass rounded-2xl overflow-hidden
+                       hover:shadow-lg transition-shadow duration-300 sticky"
+            style={{
+              top: `calc(${stickyOffsets[i] || `${72 + i * 80}px`})`,
+              zIndex: i + 1,
+            }}
+          >
+            {/* ── Text side ── */}
+            <div className="flex flex-col flex-1 p-4 md:p-8 min-h-0">
+              <h3 className="font-serif text-2xl md:text-3xl font-semibold mb-2">
+                {p.title}
+              </h3>
+              <p className="text-sm md:text-base text-muted-foreground mb-4">
+                {p.description}
+              </p>
 
-                  <ul className="mt-5 space-y-2.5">
-                    {p.points.map((pt) => (
-                      <li
-                        key={pt}
-                        className="flex gap-2 text-sm text-muted-foreground"
-                      >
-                        <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-glow-end" />
-                        {pt}
-                      </li>
-                    ))}
-                  </ul>
+              <ul className="text-sm space-y-2 text-muted-foreground mb-6">
+                {p.points.map((pt) => (
+                  <li key={pt} className="flex gap-2">
+                    <ChevronRight className="mt-0.5 h-4 w-4 shrink-0" />
+                    {pt}
+                  </li>
+                ))}
+              </ul>
 
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {p.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-full border border-border bg-secondary/40 px-3 py-1 text-xs"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="mt-7 flex flex-wrap gap-3">
-                    <a
-                      href={p.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium transition-colors hover:bg-secondary"
-                    >
-                      GitHub <GithubIcon className="h-4 w-4" />
-                    </a>
-                    <a
-                      href={p.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium transition-colors hover:bg-secondary"
-                    >
-                      Live Site <ExternalLink className="h-4 w-4" />
-                    </a>
-                  </div>
-                </div>
-
-                {/* Image */}
-                <div className="relative min-h-[260px] overflow-hidden border-t border-border md:border-l md:border-t-0">
-                  <Image
-                    src={p.image || '/placeholder.svg'}
-                    alt={`${p.title} preview`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover object-left-top"
-                  />
-                </div>
+              <div className="flex flex-wrap gap-2 mb-6">
+                {p.tags.map((t) => (
+                  <span
+                    key={t}
+                    className="text-xs px-2 py-1 rounded-full border border-border
+                               hover:bg-secondary transition-colors"
+                  >
+                    {t}
+                  </span>
+                ))}
               </div>
-            </motion.article>
-          ))}
-        </div>
+
+              <div className="flex gap-3 flex-wrap">
+                <a
+                  href={p.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm px-4 py-2 rounded-lg border border-border
+                             transition-all duration-100 ease-out
+                             hover:bg-secondary hover:scale-105 hover:-translate-y-0.5"
+                >
+                  GitHub
+                </a>
+                <a
+                  href={p.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm px-4 py-2 rounded-lg border border-border
+                             transition-all duration-100 ease-out
+                             hover:bg-blue-600 hover:text-white hover:border-blue-600
+                             hover:scale-105 hover:-translate-y-0.5"
+                >
+                  Live Site
+                </a>
+              </div>
+            </div>
+
+            {/* ── Image side ── */}
+            <div className="relative max-md:h-80 md:h-96 max-lg:w-full lg:flex-1 overflow-visible">
+              <Image
+                src={p.image || '/placeholder.svg'}
+                alt={`${p.title} preview`}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover lg:absolute lg:top-20 lg:right-[-55%] lg:w-[167%] lg:h-[22rem]"
+              />
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   )
